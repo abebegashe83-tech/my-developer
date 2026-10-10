@@ -6,7 +6,7 @@ export const profile = {
   githubUrl: 'https://github.com/abebegashe83-tech',
   linkedinUrl: 'https://www.linkedin.com/in/yourusername',
   portfolioUrl: 'https://skill-based-employ.vercel.app/',
-  email: 'abebegashe@example.com',
+  email: 'abebegashe83@gmail.com',
 };
 
 export const navLinks = [

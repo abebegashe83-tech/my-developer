@@ -162,14 +162,6 @@ function App() {
                   View My Projects
                 </a>
                 <a
-                  className="secondary-button"
-                  href={profile.portfolioUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View Portfolio
-                </a>
-                <a
                   className="primary-button github-button"
                   href={profile.githubUrl}
                   target="_blank"
@@ -183,9 +175,6 @@ function App() {
               </div>
 
               <div className="social-row" aria-label="Social links">
-                <a href={profile.portfolioUrl} target="_blank" rel="noreferrer">
-                  Portfolio
-                </a>
                 <a href={profile.githubUrl} target="_blank" rel="noreferrer">
                   GitHub
                 </a>
@@ -346,11 +335,21 @@ function App() {
                   </div>
 
                   <div className="project-links">
-                    <a href={project.github} target="_blank" rel="noreferrer">
+                    <a
+                      className="primary-button"
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       GitHub Link
                     </a>
-                    <a href={project.live_demo} target="_blank" rel="noreferrer">
-                      Live Demo
+                    <a
+                      className="primary-button"
+                      href={project.live_demo}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      View Project
                     </a>
                   </div>
                 </article>

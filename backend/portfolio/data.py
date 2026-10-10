@@ -13,7 +13,7 @@ PORTFOLIO_PROJECTS = [
             "PostgreSQL",
             "Skill-based matching"
         ],
-        "github": "https://github.com/your-username/skill-based-employment-platform",
+        "github": "https://github.com/abebegashe83-tech",
         "live_demo": "https://skill-based-employ.vercel.app/",
         "status": "Concept and prototype"
     }
