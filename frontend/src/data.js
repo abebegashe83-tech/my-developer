@@ -4,7 +4,7 @@ export const profile = {
   intro:
     'I build web applications using Django and React, with a focus on practical solutions, clean backend design, and user-centered interfaces.',
   githubUrl: 'https://github.com/abebegashe83-tech',
-  linkedinUrl: 'https://www.linkedin.com/in/yourusername',
+  linkedinUrl: 'https://www.linkedin.com/in/abebe-gashe-ab244b403',
   portfolioUrl: 'https://skill-based-employ.vercel.app/',
   email: 'abebegashe83@gmail.com',
 };
@@ -60,6 +60,12 @@ export const certificates = [
     name: 'Artificial Intelligence Fundamentals',
     provider: 'Udacity',
     issueDate: 'April 22, 2026',
+    credentialUrl: 'https://www.udacity.com/certificate/e/19dfd212-3cca-11f1-9805-ff519ad41d12',
+  },
+  {
+    name: 'Global Chapters - Ethiopia - AI Fundamentals',
+    provider: 'Udacity',
+    credentialUrl: 'https://www.udacity.com/certificate/lp/02af4b9c-cbdd-40b8-bdab-3a3514f5f74d',
   },
   {
     name: 'Android Developer Fundamentals',

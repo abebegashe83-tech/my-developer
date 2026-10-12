@@ -161,14 +161,6 @@ function App() {
                 <a className="primary-button" href="#projects">
                   View My Projects
                 </a>
-                <a
-                  className="primary-button github-button"
-                  href={profile.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  GitHub Profile
-                </a>
                 <a className="secondary-button" href="#contact">
                   Contact Me
                 </a>
@@ -373,7 +365,14 @@ function App() {
                   </div>
                   <h4>{certificate.name}</h4>
                   <p>{certificate.provider}</p>
-                  <p className="certificate-date">{certificate.issueDate}</p>
+                  {certificate.issueDate && (
+                    <p className="certificate-date">{certificate.issueDate}</p>
+                  )}
+                  {certificate.credentialUrl && (
+                    <a href={certificate.credentialUrl} target="_blank" rel="noreferrer">
+                      View Credential
+                    </a>
+                  )}
                 </article>
               ))}
             </div>
@@ -391,7 +390,7 @@ function App() {
               <div className="contact-list">
                 <a href={`mailto:${profile.email}`}>{profile.email}</a>
                 <a href={profile.portfolioUrl} target="_blank" rel="noreferrer">
-                  Portfolio
+                  Project
                 </a>
                 <a href={profile.githubUrl} target="_blank" rel="noreferrer">
                   GitHub

@@ -153,33 +153,6 @@
   background: rgba(15, 23, 42, 0.4);
 }
 
-.github-button {
-  position: relative;
-  padding-left: 1.1rem;
-  padding-right: 1.1rem;
-  box-shadow: 0 12px 28px rgba(59, 130, 246, 0.28);
-}
-
-.github-button::before {
-  content: '◉';
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.6rem;
-  height: 1.6rem;
-  margin-right: 0.55rem;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  font-weight: 800;
-}
-
-.github-button:hover {
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 16px 34px rgba(124, 58, 237, 0.28);
-}
-
 .primary-button:hover,
 .secondary-button:hover,
 .contact-form button:hover {
