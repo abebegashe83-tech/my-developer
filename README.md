@@ -128,19 +128,20 @@ cd my-developer/frontend
 npm run dev -- --host 0.0.0.0
 ```
 
-## Deployment guidance
+## Free deployment (Render + Vercel)
 
-### Django backend
+The repository includes a Render Blueprint at `render.yaml` for the Django API. Deploy the backend first, then the Vite frontend:
 
-Use a production host such as Render, Railway, or a VPS. Set environment variables for the secret key, allowed hosts, and database configuration. Use PostgreSQL for production instead of the local SQLite database.
+1. Push the repository to GitHub.
+2. In Render, create a new **Blueprint** and select this repository. Apply the `my-developer-api` service defined in `render.yaml`. Render generates `DJANGO_SECRET_KEY` and runs database migrations when the service starts.
+3. Copy the backend URL (for example, `https://my-developer-api.onrender.com`). In the Render service's environment settings, set `CORS_ALLOWED_ORIGINS`, `CSRF_TRUSTED_ORIGINS`, and `FRONTEND_URL` to the Vercel site origin. You can enter a temporary placeholder initially and update it after deploying the frontend.
+4. In Vercel, import this GitHub repository and set **Root Directory** to `frontend`. Vercel detects Vite; set the environment variable `VITE_API_URL` to the Render backend URL, without a trailing slash, then deploy.
+5. Copy the Vercel production origin (for example, `https://my-developer.vercel.app`) into the three Render variables from step 3, then redeploy the backend.
+6. Verify `https://<your-render-service>.onrender.com/api/health/` returns a JSON response with `"status": "ok"`.
 
-### React frontend
+For live contact email delivery, configure `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `DEFAULT_FROM_EMAIL`, and `EMAIL_TO` in Render. Do not put real credentials in the repository. Without working SMTP credentials, the API will report that email delivery is unavailable.
 
-Deploy the static frontend to Vercel, Netlify, or Cloudflare Pages. Point `VITE_API_URL` to the live Django backend domain after deployment.
-
-### PostgreSQL database
-
-For production, configure a PostgreSQL service and set database variables in the backend environment. Example fields include database name, username, password, and hostname.
+Render's free web service can sleep when idle, so its first request after inactivity may be slow. The current SQLite database is suitable for this simple deployment, but Render's free instance filesystem is ephemeral: saved contact submissions can be lost when the service restarts or is redeployed. Use a persistent PostgreSQL database if you need contact submissions retained.
 
 ## Publishing to GitHub
 
