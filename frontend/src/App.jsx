@@ -18,7 +18,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [profilePhoto, setProfilePhoto] = useState(() => {
     try {
-      const savedPhoto = localStorage.getItem('portfolio-profile-photo');
+      const savedPhoto = localStorage.getItem('portfolio-profile-photo-v2');
       return savedPhoto?.startsWith('data:image/') ? savedPhoto : profileImage;
     } catch {
       return profileImage;
@@ -66,7 +66,7 @@ function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('portfolio-profile-photo', profilePhoto);
+      localStorage.setItem('portfolio-profile-photo-v2', profilePhoto);
     } catch {
       // ignore storage errors in restricted browser contexts
     }
@@ -94,7 +94,7 @@ function App() {
   const handleRemovePhoto = () => {
     setProfilePhoto(profileImage);
     try {
-      localStorage.removeItem('portfolio-profile-photo');
+      localStorage.removeItem('portfolio-profile-photo-v2');
     } catch {
       // ignore storage errors in restricted browser contexts
     }
@@ -110,11 +110,51 @@ function App() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const [submitState, setSubmitState] = useState({ type: 'idle', message: '' });
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    window.alert(
-      'This demo form is ready to be connected to a backend email service or SMTP provider.',
-    );
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    if (!payload.name?.trim() || !payload.email?.trim() || !payload.message?.trim()) {
+      setSubmitState({
+        type: 'error',
+        message: 'Please complete all fields before sending your message.',
+      });
+      return;
+    }
+
+    setSubmitState({ type: 'pending', message: 'Sending your message...' });
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/contact/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Unable to send your message right now.');
+      }
+
+      form.reset();
+      setSubmitState({
+        type: 'success',
+        message: data.message || 'Your message was sent successfully.',
+      });
+    } catch (error) {
+      setSubmitState({
+        type: 'error',
+        message: error.message || 'Something went wrong while sending the message.',
+      });
+    }
   };
 
   return (
@@ -149,33 +189,6 @@ function App() {
       <main>
         <section id="home" className="hero-section">
           <div className="container hero-layout">
-            <div className="hero-copy">
-              <p className="eyebrow">Recent graduate • Computer Science</p>
-              <h1>
-                Hi, I&apos;m <span>{profile.name}</span>
-              </h1>
-              <h2>{profile.title}</h2>
-              <p className="lead">{profile.intro}</p>
-
-              <div className="cta-row">
-                <a className="primary-button" href="#projects">
-                  View My Projects
-                </a>
-                <a className="secondary-button" href="#contact">
-                  Contact Me
-                </a>
-              </div>
-
-              <div className="social-row" aria-label="Social links">
-                <a href={profile.githubUrl} target="_blank" rel="noreferrer">
-                  GitHub
-                </a>
-                <a href={profile.linkedinUrl} target="_blank" rel="noreferrer">
-                  LinkedIn
-                </a>
-              </div>
-            </div>
-
             <div className="hero-panel" aria-label="Profile overview card">
               <div className="panel-glow" aria-hidden="true" />
               <div
@@ -215,6 +228,14 @@ function App() {
                   onChange={handleImageSelect}
                 />
               </div>
+            </div>
+
+            <div className="hero-copy">
+              <p className="eyebrow">Recent graduate • Computer Science</p>
+              <h1>
+                Hi, I&apos;m <span>{profile.name}</span>
+              </h1>
+              <h2>{profile.title}</h2>
               <div className="mini-card">
                 <span className="tag">Core stack</span>
                 <div className="stack-pills">
@@ -233,6 +254,24 @@ function App() {
                   <li>AI-assisted applications</li>
                   <li>Practical software solutions</li>
                 </ul>
+              </div>
+
+              <div className="cta-row">
+                <a className="primary-button" href="#projects">
+                  View My Projects
+                </a>
+                <a className="secondary-button" href="#contact">
+                  Contact Me
+                </a>
+              </div>
+
+              <div className="social-row" aria-label="Social links">
+                <a href={profile.githubUrl} target="_blank" rel="noreferrer">
+                  GitHub
+                </a>
+                <a href={profile.linkedinUrl} target="_blank" rel="noreferrer">
+                  LinkedIn
+                </a>
               </div>
             </div>
           </div>
@@ -271,6 +310,14 @@ function App() {
                   <li>2022–2026</li>
                   <li>CGPA: 3.62</li>
                 </ul>
+                <a
+                  className="secondary-button education-link"
+                  href="/university_Tempo.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Credential
+                </a>
               </div>
             </div>
           </div>
@@ -414,7 +461,19 @@ function App() {
                 Message
                 <textarea name="message" placeholder="Tell me about your project" rows="4" />
               </label>
-              <button type="submit">Send Message</button>
+
+              {submitState.message && (
+                <p
+                  className={`form-status ${submitState.type === 'error' ? 'warning' : ''}`}
+                  aria-live="polite"
+                >
+                  {submitState.message}
+                </p>
+              )}
+
+              <button type="submit" disabled={submitState.type === 'pending'}>
+                {submitState.type === 'pending' ? 'Sending...' : 'Send Message'}
+              </button>
             </form>
           </div>
         </section>

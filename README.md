@@ -102,12 +102,14 @@ DJANGO_SECRET_KEY=replace-with-a-secure-secret-key
 DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1,[::1]
 CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+FRONTEND_URL=http://127.0.0.1:5173
 ```
 
 ## API endpoints
 
 - `GET /api/health/` returns a simple health response.
 - `GET /api/projects/` returns the project list used by the frontend.
+- Opening the backend root URL redirects to the frontend URL configured by `FRONTEND_URL`.
 
 ## How to run both services
 

@@ -69,8 +69,8 @@
 
 .hero-layout {
   display: grid;
-  grid-template-columns: 1.3fr 0.9fr;
-  align-items: center;
+  grid-template-columns: 0.9fr 1.3fr;
+  align-items: start;
   gap: 2rem;
 }
 
@@ -190,7 +190,7 @@
   background: rgba(10, 15, 29, 0.72);
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  width: min(100%, 300px);
+  width: min(100%, 240px);
   margin-inline: auto;
 }
 
@@ -203,7 +203,7 @@
 .profile-photo {
   display: block;
   width: 100%;
-  max-width: 280px;
+  max-width: 220px;
   margin: 0 auto;
   border-radius: 999px;
   border: 1px solid rgba(148, 163, 184, 0.18);
@@ -373,6 +373,11 @@
 
 .education-card {
   padding: 1.5rem;
+}
+
+.education-link {
+  margin-top: 1rem;
+  width: fit-content;
 }
 
 .education-card h4,

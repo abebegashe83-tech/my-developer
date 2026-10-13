@@ -1,8 +1,6 @@
 export const profile = {
   name: 'Abebe Gashe',
   title: 'Full-Stack Web Developer',
-  intro:
-    'I build web applications using Django and React, with a focus on practical solutions, clean backend design, and user-centered interfaces.',
   githubUrl: 'https://github.com/abebegashe83-tech',
   linkedinUrl: 'https://www.linkedin.com/in/abebe-gashe-ab244b403',
   portfolioUrl: 'https://skill-based-employ.vercel.app/',
