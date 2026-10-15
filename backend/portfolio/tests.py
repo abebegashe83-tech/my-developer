@@ -3,6 +3,22 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 
+class PortfolioHomeTests(TestCase):
+    @override_settings(
+        DEBUG=False,
+        FRONTEND_URL='http://127.0.0.1:5173',
+        DEFAULT_FRONTEND_URL='https://my-developer-w91p.vercel.app',
+    )
+    def test_root_uses_production_frontend_when_configured_url_is_localhost(self):
+        response = self.client.get('/')
+
+        self.assertRedirects(
+            response,
+            'https://my-developer-w91p.vercel.app',
+            fetch_redirect_response=False,
+        )
+
+
 @override_settings(
     EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
     EMAIL_TO='abebegashe83@gmail.com',

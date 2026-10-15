@@ -30,10 +30,8 @@ if not SECRET_KEY:
 # FRONTEND CONFIGURATION
 # --------------------------------------------------
 
-FRONTEND_URL = os.getenv(
-    "FRONTEND_URL",
-    "https://my-developer-w91p.vercel.app",
-).rstrip("/")
+DEFAULT_FRONTEND_URL = "https://my-developer-w91p.vercel.app"
+FRONTEND_URL = os.getenv("FRONTEND_URL", DEFAULT_FRONTEND_URL).rstrip("/")
 
 
 # --------------------------------------------------

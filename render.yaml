@@ -19,4 +19,4 @@ services:
       - key: CSRF_TRUSTED_ORIGINS
         sync: false
       - key: FRONTEND_URL
-        sync: false
+        value: https://my-developer-w91p.vercel.app
