@@ -1,10 +1,19 @@
+
 from django.contrib import admin
-from django.conf import settings
+from django.http import JsonResponse
 from django.urls import include, path
-from django.views.generic import RedirectView
+
+
+def api_home(request):
+    return JsonResponse({
+        "message": "Django Portfolio API is running",
+        "status": "ok",
+        "projects_endpoint": "/api/",
+    })
+
 
 urlpatterns = [
-    path('', RedirectView.as_view(url=settings.FRONTEND_URL, permanent=False)),
-    path('admin/', admin.site.urls),
-    path('api/', include('portfolio.urls')),
+    path("", api_home, name="api-home"),
+    path("admin/", admin.site.urls),
+    path("api/", include("portfolio.urls")),
 ]
